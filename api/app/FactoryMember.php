@@ -35,6 +35,13 @@ class FactoryMember extends Model {
      * @var string
      */
     protected $primaryKey = 'member_id';
+
+    /**
+     * Values you do not want to be exported
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at'];
 }
 /*
 +------------+------------------+------+-----+---------------------+-----------------------------+

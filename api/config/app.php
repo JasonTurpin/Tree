@@ -195,4 +195,7 @@ return [
 
 	],
 
+    // The most Members a Factory can have
+    'memberLimit' => '15',
+
 ];
