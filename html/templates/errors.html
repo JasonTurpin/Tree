@@ -1,0 +1,10 @@
+<div class="alert alert-block alert-danger fade in errorMsg text-left">
+    <button type="button" class="close close-sm" data-dismiss="alert">
+        <i class="fa fa-times"></i>
+    </button>
+    <ul class="disc">
+<% _.each(errorMsgs, function(msg) { %>
+        <li><%= msg %></li>
+<% }); %>
+    </ul>
+</div>
