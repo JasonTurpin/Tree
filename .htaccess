@@ -2,3 +2,7 @@ RewriteEngine on
 
 # Directs API commands
 RewriteRule ^api/.*$ /api/public/ [QSA,L]
+
+# Redirect all requests through index
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
