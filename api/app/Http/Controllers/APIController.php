@@ -13,6 +13,7 @@ namespace App\Http\Controllers;
 
 // Include models
 use \Illuminate\Support\Facades\Request;
+use \Illuminate\Support\Facades\Cache;
 use \App\Factory;
 use \App\FactoryMember;
 
@@ -30,18 +31,20 @@ class APIController extends Controller {
      * @return Response
      */
     public function do_fetchNodes() {
-        /**
-         * Factory Nodes, ordered by factory_id ASC
-         *
-         * @var \Illuminate\Database\Eloquent\Collection
-         */
-        $Factories = Factory::orderBy('factory_id')->get();
+        return Cache::rememberForever('fetchNodes', function() {
+            /**
+             * Factory Nodes, ordered by factory_id ASC
+             *
+             * @var \Illuminate\Database\Eloquent\Collection
+             */
+            $Factories = Factory::orderBy('factory_id')->get();
 
-        // Load factory members
-        $Factories->load('members');
+            // Load factory members
+            $Factories->load('members');
 
-        // Output JSON
-        return $Factories;
+            // Output JSON
+            return $Factories;
+        });
     }
 
     /**
@@ -59,6 +62,9 @@ class APIController extends Controller {
         if (!$this->_setFactory($factory)) {
             return array('errorMsgs' => array('Invalid values detected.'));
         }
+
+        // Clear cache
+        Cache::forget('fetchNodes');
 
         // Output JSON
         return $factory;
@@ -118,6 +124,10 @@ class APIController extends Controller {
             $member->value      = mt_rand($factory->lowerBound, $factory->upperBound);
             $member->save();
         }
+
+        // Clear cache
+        Cache::forget('fetchNodes');
+
         return array('result' => true);
     }
 
@@ -141,8 +151,11 @@ class APIController extends Controller {
 
         // Delete the factory and its members
         $factory->members()->delete();
-        return array(
-            'result' => $factory->delete()
-        );
+        $factory->delete();
+
+        // Clear cache
+        Cache::forget('fetchNodes');
+
+        return array ('result' => true);
     }
 }
