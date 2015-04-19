@@ -1,0 +1,4 @@
+RewriteEngine on
+
+# Directs API commands
+RewriteRule ^api/.*$ /api/public/ [QSA,L]
