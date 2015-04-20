@@ -72,6 +72,18 @@ define([
             // Initialize The Factories
             that.Factories = new Factories();
 
+            // Set a 5 second timer
+            setInterval(function() {
+                that._reloadFactories();
+            }, 1000);
+        },
+
+        /**
+         * Reload Factory List
+         *
+         * @return void
+         */
+        _reloadFactories: function() {
             // Fetch the Factories
             that.Factories.fetch({
                 // Successfully fetched factories and its related members, render the template
@@ -96,6 +108,11 @@ define([
         _showExistingFactory: function(factory_id) {
             // Set the current factory being processed
             that.fact = that.Factories.get(factory_id);
+
+            // IF an invalid factory_id was passed
+            if (that.fact == 'undefined') {
+                return;
+            }
 
             // Modal selector
             var modalSel = $('#existingFactoryModal');
