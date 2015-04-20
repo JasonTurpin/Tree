@@ -35,7 +35,7 @@
 .tree .tree-folder{
     width:auto;
     min-height:20px;
-    cursor:pointer;
+    /*cursor:pointer;*/
 }
 
 .tree .tree-folder .tree-folder-header{
@@ -46,7 +46,7 @@
 }
 
 .tree .tree-folder .tree-folder-header:hover{
-    background-color:#F1F2F7;
+    /*background-color:#F1F2F7;*/
     border-radius: 4px;
     -webkit-border-radius: 4px;
 }
@@ -95,11 +95,11 @@
     min-height:20px;
     line-height:20px;
     min-width: 100px;
-    cursor:pointer
+    /*cursor:pointer*/
 }
 
 .tree .tree-item:hover{
-    background-color:#F1F2F7;
+    /*background-color:#F1F2F7;*/
     border-radius: 4px;
     -webkit-border-radius: 4px;
 }

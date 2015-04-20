@@ -28,6 +28,72 @@
     </div>
 </div>
 <div class="page-header" id="banner"></div>
-<div class="container" id="contentContainer"></div>
+<div class="container">
+    <div class="row">
+        <!--Node List Start-->
+        <div class="col-sm-9 col-xs-12">
+            <div class="panel">
+                <div class="panel-heading rootNodeContainer">
+                    <h3 class="rootLabel">Root</h3>
+                </div>
+                <div class="panel-body treeContainer">
+                    <div class="tree tree-plus-minus" id="factoryTree"></div>
+                </div>
+            </div>
+        </div>
+        <!--Node List END-->
+
+        <!--Directions START-->
+        <div class="col-sm-3 col-xs-12">
+            <ul>
+                <li>Create a factory by clicking the top right button.</li>
+                <li>Right click the factory to edit it, delete it, or generate/regenerate the factory's random numbers.</li>
+            </ul>
+        </div>
+        <!--Directions END-->
+    </div>
+    <!--New Factory Modal START-->
+    <div class="modal" id="newFactoryModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Create A New Factory</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Factory Name</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control factoryName newFactory" name="newFactoryName" placeholder="Factory Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Lower Bound</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control intField newFactory" name="newFactoryLower" placeholder="Random Number Lower Bound">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Upper Bound</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control intField newFactory" name="newFactoryUpper" placeholder="Random Number Upper Bound">
+                                </div>
+                            </div>
+                            <div id="newFactoryErrors"></div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span class="loadingGIF hoffa"><img src="/images/loading.gif" /></span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="createNewFactory" type="button" class="btn btn-primary newFactory saveFactory">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--New Factory Modal END-->
+</div>
 </body>
 </html>

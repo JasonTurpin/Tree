@@ -8,3 +8,15 @@
 .newFactory.loadingGIF {
     margin-right: 5px;
 }
+.rootLabel {
+    margin: 0 !important;
+}
+.rootNodeContainer {
+    padding-bottom: 0px !important;
+}
+.treeContainer {
+    padding-top: 0px !important;
+}
+#FlatTree {
+    font-size: 15px;
+}
