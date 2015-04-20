@@ -6,6 +6,9 @@ define([
     'collections/Members'
 ], function($, _, Backbone, util, members){
     Factory = Backbone.Model.extend({
+        // Defined ID attribute
+        idAttribute: 'factory_id',
+
         // AJAX Request URL
         url: '',
 
@@ -18,6 +21,15 @@ define([
             upperBound: null,
             lowerBound: null,
             members   : []
+        },
+
+        /**
+         * Sets the count
+         *
+         * @return void
+         */
+        setCount: function(count) {
+            this.attributes.count.set('count');
         },
 
         /**

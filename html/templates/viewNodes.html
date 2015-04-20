@@ -1,6 +1,6 @@
 <% _.each(NodeFactories, function(factory) { %>
 <div class="tree-folder">
-    <div class="tree-folder-header">
+    <div class="tree-folder-header factoryParent" data-id="<%= factory.get('factory_id') %>">
         <div class="tree-folder-name"><%= factory.get('label') %></div>
         <span class="badge pull-right"><%= factory.get('lowerBound') %> : <%= factory.get('upperBound') %></span>
     </div>

@@ -95,6 +95,73 @@
         </div>
     </div>
     <!--New Factory Modal END-->
+
+    <!--Edit Factory Modal START-->
+    <div class="modal" id="existingFactoryModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Factory Name</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control factoryName existingFactory" name="existingFactoryName" placeholder="Factory Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Lower Bound</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control intField existingFactory" name="existingFactoryLower" placeholder="Random Number Lower Bound">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Upper Bound</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control intField existingFactory" name="existingFactoryUpper" placeholder="Random Number Upper Bound">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label"># of Children</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" name="existingFactoryCount">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="existingFactoryErrors"></div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span class="loadingGIF hoffa"><img src="/images/loading.gif" /></span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button id="editExistingFactory" type="button" class="btn btn-primary existingFactory">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Edit Factory Modal END-->
 </div>
 </body>
 </html>

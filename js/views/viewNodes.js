@@ -56,6 +56,16 @@ define([
             // When the user wants to submit a new factory
             $(body).on('click', '.saveFactory', that._processFactory);
 
+            // IF the user right clicked on the factory container
+            $(body).on('mousedown', '.factoryParent', function(event) {
+                if (event.which == 3) {
+                    that._showExistingFactory($(this).attr('data-id'));
+                }
+            });
+
+            // Deletes a factory
+            $(body).on('click', '#editExistingFactory', that._processFactory);
+
             // Show new factory Button
             $('#newFactory').removeClass('hoffa');
 
@@ -73,6 +83,64 @@ define([
                 error: function() {
                     util.renderError(['An error occurred'], 'dashboardErrors');
                 }
+            });
+        },
+
+        /**
+         * Show an existing factory
+         *
+         * @param {int} factory_id Factory ID
+         *
+         * @return void
+         */
+        _showExistingFactory: function(factory_id) {
+            // Set the current factory being processed
+            that.fact = that.Factories.get(factory_id);
+
+            // Modal selector
+            var modalSel = $('#existingFactoryModal');
+
+            // Set values
+            $('#existingFactoryModal .modal-title').html('Edit' + that.fact.get('label'));
+            $('[name="existingFactoryName"]').val(that.fact.get('label'));
+            $('[name="existingFactoryLower"]').val(that.fact.get('lowerBound'));
+            $('[name="existingFactoryUpper"]').val(that.fact.get('upperBound'));
+            $('[name="existingFactoryCount"]').val(that.fact.get('members').length);
+
+            // Show Modal
+            $(modalSel).modal('show');
+
+            // Deletes a factory
+            $('#existingFactoryModal .btn-danger').on('click', function() {
+                // Show loading GIF
+                util.addLoadingGIF('existingFactory');
+
+                // Set the delete URL
+                that.fact.url = '/api/deleteFactory/' + that.fact.get('factory_id');
+
+                // Fetch the Factories
+                that.fact.destroy({
+                    // Successfully fetched factories and its related members, render the template
+                    success: function (model, response) {
+                        // Hide loading GIF
+                        util.hideLoadingGIF('existingFactory');
+
+                        // Hide Modal
+                        $(modalSel).modal('hide');
+                    },
+
+                    // IF an error occurred
+                    error: function() {
+                        // Hide loading GIF
+                        util.hideLoadingGIF('existingFactory');
+
+                        // Hide Modal
+                        $(modalSel).modal('hide');
+
+                        // Display error message
+                        util.renderError(['An error occurred.'], 'existingFactoryErrors');
+                    }
+                });
             });
         },
 
@@ -140,8 +208,52 @@ define([
 
             // Existing factory
             } else {
-                // @todo update existing factory
+                // Set Factory Variables
+                that.fact.set({
+                    label     : $(nameSelector).val(),
+                    lowerBound: $(lowerSelector).val(),
+                    upperBound: $(upperSelector).val(),
+                    count     : $('[name="existingFactoryCount"]').val()
+                });
+                that._updateFactory();
             }
+        },
+
+        /**
+         * Attempts to update a new factory
+         *
+         * @return void
+         */
+        _updateFactory: function() {
+            // Show loading GIF
+            util.addLoadingGIF('existingFactory');
+
+            // Set the delete URL
+            that.fact.url = '/api/regenerateFactory/' + that.fact.get('factory_id');
+
+            // Fetch the Factories
+            that.fact.save(that.fact.attributes, {
+                // Successfully fetched factories and its related members, render the template
+                success: function (model, response) {
+                    // Hide loading GIF
+                    util.hideLoadingGIF('existingFactory');
+
+                    // Hide Modal
+                    $('#existingFactoryModal').modal('hide');
+                },
+
+                // IF an error occurred
+                error: function() {
+                    // Hide loading GIF
+                    util.hideLoadingGIF('existingFactory');
+
+                    // Hide Modal
+                    $('#existingFactoryModal').modal('hide');
+
+                    // Display error message
+                    util.renderError(['An error occurred.'], 'existingFactoryErrors');
+                }
+            });
         },
 
         /**
