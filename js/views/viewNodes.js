@@ -5,13 +5,19 @@ define([
     'bootstrap',
     'util',
     'models/factory',
+    'collections/Factories',
     'text!templates/viewNodes.html'
-], function($, _, Backbone, Bootstrap, util, Factory, ViewNodes) {
+], function($, _, Backbone, Bootstrap, util, Fact, Factories, ViewNodes) {
     var AppManagerViewsAddon = Backbone.View.extend({
         /**
          * @var Factory - Current factory
          */
         fact: null,
+
+        /**
+         * @var Factories - Collection of Factories
+         */
+        Factories: [],
 
         /**
          * Initialize the view
@@ -53,8 +59,21 @@ define([
             // Show new factory Button
             $('#newFactory').removeClass('hoffa');
 
-            // Render the template
-            that.render();
+            // Initialize The Factories
+            that.Factories = new Factories();
+
+            // Fetch the Factories
+            that.Factories.fetch({
+                // Successfully fetched factories and its related members, render the template
+                success: function (data) {
+                    that.render();
+                },
+
+                // IF an error occurred
+                error: function() {
+                    util.renderError(['An error occurred'], 'dashboardErrors');
+                }
+            });
         },
 
         /**
@@ -240,7 +259,7 @@ define([
          * @return void
          */
         render: function() {
-            $('#contentContainer').html(_.template(ViewNodes, {}));
+            $('#factoryTree').html(_.template(ViewNodes, {NodeFactories: that.Factories.models}));
         }
     });
     return AppManagerViewsAddon;

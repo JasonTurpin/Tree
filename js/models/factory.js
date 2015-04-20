@@ -2,9 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'util'
-], function($, _, Backbone, util){
-    var Factory = Backbone.Model.extend({
+    'util',
+    'collections/Members'
+], function($, _, Backbone, util, members){
+    Factory = Backbone.Model.extend({
         // AJAX Request URL
         url: '',
 
@@ -15,7 +16,17 @@ define([
             factory_id: null,
             label     : null,
             upperBound: null,
-            lowerBound: null
+            lowerBound: null,
+            members   : []
+        },
+
+        /**
+         * Initialize Members collection
+         *
+         * @return void
+         */
+        initializeMembers: function() {
+            this.attributes.members = new Members(this.attributes.members);
         }
     });
     return Factory;

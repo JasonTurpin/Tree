@@ -1,38 +1,20 @@
+<% _.each(NodeFactories, function(factory) { %>
 <div class="tree-folder">
     <div class="tree-folder-header">
-        <div class="tree-folder-name">Factory #1</div>
-        <span class="badge pull-right">1 : 300</span>
+        <div class="tree-folder-name"><%= factory.get('label') %></div>
+        <span class="badge pull-right"><%= factory.get('lowerBound') %> : <%= factory.get('upperBound') %></span>
     </div>
+
+    <% if(factory.get('members').models.length> 0) { %>
     <div class="tree-folder-content">
+        <% _.each(factory.get('members').models, function(member) { %>
         <div class="tree-folder">
             <div class="tree-folder-header">
-                <div class="tree-folder-name">12222</div>
+                <div class="tree-folder-name"><%= member.get('value') %></div>
             </div>
         </div>
-        <div class="tree-folder">
-            <div class="tree-folder-header">
-                <div class="tree-folder-name">299283</div>
-            </div>
-        </div>
-        <div class="tree-item">
-            <i class="tree-dot"></i>
-            <div class="tree-item-name">28</div>
-        </div>
-        <div class="tree-item">
-            <i class="tree-dot"></i>
-            <div class="tree-item-name">1888</div>
-        </div>
+        <% }); %>
     </div>
+    <% } %>
 </div>
-<div class="tree-folder">
-    <div class="tree-folder-header">
-        <div class="tree-folder-name">Factory #2</div>
-        <span class="badge pull-right">-200 : 0</span>
-    </div>
-</div>
-<div class="tree-folder">
-    <div class="tree-folder-header">
-        <div class="tree-folder-name">Factory #3</div>
-        <span class="badge pull-right">-100 : 2000</span>
-    </div>
-</div>
+<% }); %>
